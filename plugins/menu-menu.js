@@ -87,14 +87,13 @@ let menu = `${lenguajeGB['smsConfi2']()} *${user.genero === 0 ? '👤' : user.ge
 *〔🕷️SPIDER MAN BOT 🕸️〕
 
 ╭━〔SPIDER MAN 〕━⬣
-┃ACTIVO: 03.06.2024
 ┃   CREADORES:
-┃RICARDO—ANTHONY
+┃    RICARDO
 ╰━━━━━━━━━━━⬣
 ╔═════════════════╗
 ┇➤ .menu/.comandos
 ╚═════════════════╝
-
+➤MENU FREE FIRE , INTERACTUA CON LA BOT
 ★ 𝙁𝙍𝙀𝙀 𝙁𝙄𝙍𝙀 ★
 ┊➺ 🎫 .donarsala
 ┊➺ 🎟️ .sorteo 
