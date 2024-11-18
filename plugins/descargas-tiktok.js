@@ -1,56 +1,9 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
-
-const clean = (data) => {
-  let regex = /(<([^>]+)>)/gi;
-  data = data.replace(/(<br?\s?\/>)/gi, " \n");
-  return data.replace(regex, "");
-};
-
-async function shortener(url) {
-  return url;
-}
-
-exports.Tiktok = async(query) => {
-  let response = await axios("https://lovetik.com/api/ajax/search", {
-    method: "POST",
-    data: new URLSearchParams(Object.entries({ query })),
-  });
-
-  result = {};
- 
-  result.creator = "YNTKTS";
-  result.title = clean(response.data.desc);
-  result.author = clean(response.data.author);
-  result.nowm = await shortener(
-    (response.data.links[0].a || "").replace("https", "http")
-  );
-  result.watermark = await shortener(
-    (response.data.links[1].a || "").replace("https", "http")
-  );
-  result.audio = await shortener(
-    (response.data.links[2].a || "").replace("https", "http")
-  );
-  result.thumbnail = await shortener(response.data.cover);
-  return result;
-}
-
-async function ttimg(link) {
-    try {    
-        let url = `https://dlpanda.com/es?url=${link}&token=G7eRpMaa`;    
-        let response = await axios.get(url);
-        const html = response.data;
-        const $ = cheerio.load(html);
-        let imgSrc = [];
-        $('div.col-md-12 > img').each((index, element) => {
-            imgSrc.push($(element).attr('src'));
-        });
-        if (imgSrc.length === 0) {
-            return { data: '*[❗] No se encontraron imágenes en el enlace proporcionado.*' };
-        }
-        return { data: imgSrc }; 
-    } catch (error) {
-        console.lo (error);
-        return { data: '*[❗] No se obtuvo respuesta de la página, intente más tarde.*'};
-    };
-};
+let fetch = require('node-fetch')
+let handler = async (m, { conn, args, usedPrefix, command, text }) => {
+if (!args[0]) throw `*Formato de uso: ${usedPrefix + command} https://tiktokxxxx*\n*Ejemplo:*\n*${usedPrefix + command} https://vm.tiktok.com/ZMLUWWsc3/*`
+if (!args[0].match(/tiktok/gi)) throw `*Fallo al detectar la URL de tiktok, compruebe que sea de tiktok*`
+let res = await fetch("https://api-alc.herokuapp.com/api/download/tiktok?url="+args[0]+"&apikey=ConfuMods")
+let json = await res.json()
+conn.sendFile(m.chat, json.result.sin_marca, 'error.mp4', `🤹‍♀️ *¡Aqui tienes el tiktok!*\n🐈 𝙂𝙖𝙩𝙖 𝘿𝙞𝙤𝙨 🐈`, m)}
+handler.command = /^(tik(tok)?(dl)?)$/i
+module.exports = handler
